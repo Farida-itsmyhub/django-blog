@@ -1,7 +1,7 @@
 # О чем сайт?
 Сайт сделан как мини-блог художника, куда можно выкладывать свои работы, а также смотреть и комментировать работы других зарегистрированных художников.  
 
-# Login, Logout
+# Login, Sign Up
 Регистрация пользователя:
 <p float="left" align="middle">
     <img width="500" alt="registration" src="https://user-images.githubusercontent.com/48317053/151590448-22bdf959-914a-4fb8-8ae4-e1b574851ba1.png">
@@ -18,7 +18,7 @@
 <p float="left" align="middle">
     <img width="700" alt="main" src="https://user-images.githubusercontent.com/48317053/151585380-2d0441f1-67b9-4a14-a470-69ec027003f4.png">
 </p>
-На вкладке ___my dashboard___ есть ссылки для редактирования своего профиля и смены пароля:
+На вкладке ***my dashboard*** есть ссылки для редактирования своего профиля и смены пароля:
 <p float="left" align="middle">
     <img width="500" alt="edit_profile_err" src="https://user-images.githubusercontent.com/48317053/151586036-70f6fc62-ea0b-4f9b-b29e-44212393240d.png">
     <img width="500" alt="change pass" src="https://user-images.githubusercontent.com/48317053/151586361-d56e4e57-18d6-43c3-8fe1-0764a11a8594.png">
