@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Edit your post{% endblock %}
+{% block content %}
+    <h1>Edit your post</h1>
+    <p class="lead">You can edit this post using the following form:</p>
+    <form action="." method="post" enctype="multipart/form-data">
+        {{ post_form|crispy }}
+        {% csrf_token %}
+        <p><input class="btn btn-success" type="submit" value="Save changes"></p>
+    </form>
+{% endblock %}

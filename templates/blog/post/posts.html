@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Images{% endblock %}
+{% block content %}
+    <h1 class="display-6 text-center">{{ author }}'s images</h1>
+    <div class="text-center">
+        {% if posts %}
+            {% for p in posts %}
+                {% if forloop.first %}
+                    <div class="row text-center">
+                    {% endif %}
+                        <div class="col-md-4 ">
+                                <h3 class="h3 text-center"><a style="color:#563d7c" href="{{ p.get_absolute_url }}">{{ p.name }}</a></h3>
+                                <img class="gx-3 thumbnail img-fluid img-center rounded" src="{{ p.image.url }}" alt="">
+                        </div>
+                        {% if forloop.counter|divisibleby:3 %}
+                    </div>
+                            <div class="row">
+                                {% endif %}
+                                {% if forloop.last %}
+                            </div>{% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

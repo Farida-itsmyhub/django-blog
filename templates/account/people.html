@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}All people{% endblock %}
+{% block content %}
+    <h1 class="display-6 text-center mb-4">All people</h1>
+    <div class="bs-example">
+            {% for p in people %}
+                {% if forloop.first %}
+                    <div class="row text-center mb-4">
+                {% endif %}
+                <div class="col-md-4 ">
+                    <p class="h6 text-center"><a style="color:#563d7c" href="{% url 'posts' p.user p.user_id %}">User: {{ p.user }}</a></p>
+                    <img style="max-width: 210px; max-height: 210px" class="gx-3 thumbnail img-fluid img-center rounded" src="{{ p.photo.url }}" alt="">
+                </div>
+                {% if forloop.counter|divisibleby:3 %}
+                    </div>
+                    <div class="row text-center mb-4">
+                {% endif %}
+                {% if forloop.last %}
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+    </div>
+{% endblock %}

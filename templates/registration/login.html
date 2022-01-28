@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}LogIn{% endblock %}
+{% block content %}
+    <h1 class="h1">Log In</h1>
+    {% if form.errors %}
+        <p class="lead">Your username and password didn't match. Please try again.</p>
+    {% else %}
+        <p class="lead">Please, use the following form to log-in. If you don't have an account <a href="{% url "register" %}">register here</a></p>
+    {% endif %}
+    <div class="form-group login-form">
+        <form action="{% url 'login' %}" method="post">
+            {{ form|crispy}}
+            {% csrf_token %}
+            <input type="hidden" class="btn btn-success" name="next" value="{{ next }}" />
+            <p class="lead"><input type="submit" class="btn btn-secondary btn-success" value="Log In"></p>
+        </form>
+        <p class="lead"><a class="lead" href="{% url "password_reset" %}">Forgotten your password?</a></p>
+    </div>
+    <div class="social">
+        <ul class="list-unstyled">
+            <li class="facebook"><a href="{% url "social:begin" "facebook" %}">Signin with Facebook</a></li>
+        </ul>
+    </div>
+{% endblock %}

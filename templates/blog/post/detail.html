@@ -1,16 +1,24 @@
-{% extends "blog/base.html" %}
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% load blog_tags %}
 
 {% block title %}
-    {{ post.title }}
+    {{ post.name }}
 {% endblock %}
 {% block content %}
-    <h1>{{ post.title }}</h1>
+    <div class="text-left row align-items-center mb-2">
+        <h1 class="h2 my-auto">{{ post.name }}</h1>
+        {% if request.user.id == post.author_id %}
+            <p class="my-auto ">(<a class="text-primary" href="{% url "edit_post" post.author_id post.id %}">Edit</a>)</p>
+        {% endif %}
+    </div>
     <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
-    {{ post.body|markdown }}
-    <p>
-        <a href="{% url "blog:post_share" post.id %}">Share this post</a>
+    <div class="">
+        <h3>Description</h3>
+        <p>{{ post.body }}</p>
+        <img style="max-height: 500px; max-width: 500px" class="gx-3 thumbnail img-fluid img-center rounded" src="{{ post.image.url }}" alt="">
+    </div>
+    <p class="mt-2">
+        <a href="{% url "post_share" post.id %}">Share this post</a>
     </p>
     {% with comments.count as total_comments %}
         <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
@@ -22,11 +30,13 @@
         {% endfor %}
     {% endif %}
     {% for comment in comments %}
-        <div class="comment">
-            <p class="info">Comment {{ forloop.counter }} by {{ comment.name }}
-            {{ comment.created }}
-            </p>
-            {{ comment.body|linebreaks }}
+        <div>
+            <div class="row">
+{#                <img style="max-width: 30px; max-height: 30px" class="gx-3 thumbnail img-fluid img-center rounded" src="{{ comment.get_photo }}" alt="">#}
+                <p class="h6 text-decoration-underline info">Comment by {{ comment.name }}</p>
+            </div>
+            <p class='fw-light'>{{ comment.created }}</p>
+            <p class="h6">{{ comment.body|linebreaks }}</p>
         </div>
     {% empty %}
         <p>There are no comments yet.</p>
@@ -35,10 +45,27 @@
         <h2>Your comment has been added.</h2>
     {% else %}
         <h2>Add a new comment</h2>
-        <form action="." method="post">
-            {{ comment_form|crispy }}
-            {% csrf_token %}
-            <p><input type="submit" class="btn btn-success" value="Add comment"></p>
-        </form>
+        <div class="container">
+            <form action="." method="post">
+                {{ comment_form|crispy }}
+                {% csrf_token %}
+                <div>
+                    {% for field in form %}
+                    <div class="form-group">
+                        {{field.label_tag}}
+                        <div>{{field}}</div>
+                        {% if field.errors%}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger">
+                                    {{error}}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <p><input type="submit" class="btn btn-primary" value="Add comment"></p>
+            </form>
+        </div>
     {% endif %}
 {% endblock %}
